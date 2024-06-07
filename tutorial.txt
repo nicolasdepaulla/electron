@@ -1,0 +1,36 @@
+tutorial electron
+
+1) - iniciar um novo projeto (npm init)
+seguir a doc 
+instalar o electron (npm install electron --save-dev)
+
+
+2) criar uma estrutura de pastas (modelo de camadas (mvc)model view controller)
+src
+| ----- views
+        | ---- index.html
+| ----- public
+           | ----- css
+           | ----- img
+           | ----- js
+
+3) personalização da janela 
+    - dimensões
+    - redimensionamento
+    - cor
+    - ícone
+    - menu
+    - barra de título            
+
+
+4) personalização do menu
+template -> estrutura de dados
+passo 1: importar o recurso menu e criar um template 
+passo 2: exibir o template no lugar do menu original
+
+
+obs: alguns recursos precisam ser importados 
+exemplo: acesso a links externos
+shell 
+
+obs 2: o shell é usado no main para acessar recursos externos como (links)
