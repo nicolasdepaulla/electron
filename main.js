@@ -1,17 +1,21 @@
-// console.log("processo principal")
 
-const { app, BrowserWindow, nativeTheme, Menu, shell } = require('electron')
+
+const { app, BrowserWindow, nativeTheme, Menu, shell, ipcMain } = require('electron')
+// relacionado ao preload.js (path é o caminho pra chegar até o preload)
+const path = require('node:path')
 // janela principal
 const createWindow = () => {
     // nativeTheme.themeSource = 'dark'
     const win = new BrowserWindow({
         width: 1280, // largura  da janela
         height: 720, // altura da janela
-        icon: './src/public/img/pc.png'
+        icon: './src/public/img/pc.png',
         // resizable: false, // evitar o redimensionamneto
         // titleBarStyle: 'hidden', // esconder barra de titulo e menu
         // autoHideMenuBar: true // esconder o menu(apenas)
-
+        webPreferences: {
+            preload: path.join(__dirname, 'preload.js')
+        }
     })
 
     // iniciar a janela com o menu personalizado
@@ -98,6 +102,20 @@ const template = [
             label: 'sobre',
             click: () => aboutWindow()
         }
-    ]
+        ]
     }
 ]
+
+// processos 
+console.log("processo principal")
+// exemplo 1 : comando que só funciona no node.js
+console.log(`Electron: ${process.versions.node}`)
+// exemplo 2 : Recebimento de uma mensagem do renderer
+ipcMain.on('send-message', (event, Message) => {
+    console.log(`processo principal recebeu uma mensagem: ${Message}`)
+})
+
+// exemplo 3: recebimento do renderer de uma ação a ser executada
+ipcMain.on('open-about', () => {
+    aboutWindow()
+})

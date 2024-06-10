@@ -34,3 +34,37 @@ exemplo: acesso a links externos
 shell 
 
 obs 2: o shell é usado no main para acessar recursos externos como (links)
+
+5) processo (principal e renderização)
+- só pode exisitir um processo principal (main.js)
+- para criar um processo de renderização devemos criar um documento js na página html
+- podemos usar um único processo de renderização para todas as páginas html, porém,
+é recomendado usar um processo de renderização por documento html.
+- por uma questão didática, podemos dizer que,
+o processo de renderização é o front-end da aplicação
+e o processo principal é o back-end da aplicação
+
+
+preload.js (seguir a documentação para implementar)
+o preload.js é usado para:
+1) expor a utilização do node e recursos do electron 
+para o processo de renderização melhorando o desempenho e a segurança
+2) para situações, onde você sabe que vai precisar de certos recursos de dados
+antes que o usuário solicite diretamente, tornando a UX(user experience) mais rápida e suave.
+
+obs: é possivel tirar o contexto de isolamento e permitir a execução 
+do node.js no processo de renderização.
+
+IPC (inter-process communication)
+ipcMain (processo principal)
+ipcRenderer (processo de renderização)
+ 
+
+ sintaxe ipcMain e ipcRenderer (recebimento)
+ on(dentro de on vai uma função)
+ ipcMain.on(() => {})
+ ipcRenderer.on(() => {})
+
+                    preload.js
+                        ↓
+ Fluxo: ipcRenderer -> hello() -> main.js
