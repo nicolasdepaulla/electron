@@ -25,22 +25,48 @@ const createWindow = () => {
 }
 
 // janela Sobre
+let about // resolver bug de arbertura de várias janelas (bug1) abrir
 
 const aboutWindow = () => {
     // nativeTheme.themeSource = 'dark'
-    const about = new BrowserWindow({
-        width: 360, // largura  da janela
-        height: 220, // altura da janela
-        icon: './src/public/img/pc.png',
-        resizable: false, // evitar o redimensionamneto
-        // titleBarStyle: 'hidden', // esconder barra de titulo e menu
-        autoHideMenuBar: true // esconder o menu(apenas)
+    // se a janela about não estiver aberta
+    if (!about) {
+        about = new BrowserWindow({
+            width: 360, // largura  da janela
+            height: 220, // altura da janela
+            icon: './src/public/img/pc.png',
+            resizable: false, // evitar o redimensionamneto
+            // titleBarStyle: 'hidden', // esconder barra de titulo e menu
+            autoHideMenuBar: true // esconder o menu(apenas)
 
-    })
+        })
+    }
+
 
     about.loadFile('./src/views/sobre.html')
+    // bug 2 (reabrir a janela se estiver fechada)
+    about.on('closed', () => {
+        about = null
+    })
 }
 
+// janela secundária
+const childWindow = () => {
+    // a linha abaixo obtém a janela pai (Janela principal)
+    const father = BrowserWindow.getFocusedWindow()
+    if (father) {
+        const child = new BrowserWindow({
+            width: 640,
+            height: 450,
+            icon: './src/public/img/pc.png',
+            autoHideMenuBar: true,
+            resizable: false,
+            parent: father, // esta janela estabelece a relação parent-child
+            modal: true // manter o foco do usuário na janela
+        })
+        child.loadFile('./src/views/child.html')
+    }
+}
 // executar a aplicação de forma assíncrona
 app.whenReady().then(() => {
     createWindow()
@@ -52,10 +78,15 @@ const template = [
 
         label: 'arquivo',
         submenu: [{
+            label: 'janela secundária',
+            click: ()=> childWindow()
+        },
+            {
             label: 'sair',
             click: () => app.quit(),
             accelerator: 'Alt+F4'
-        }
+        },
+        
         ]
 
     },

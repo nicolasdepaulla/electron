@@ -1,3 +1,5 @@
+Aula 01
+
 tutorial electron
 
 1) - iniciar um novo projeto (npm init)
@@ -68,3 +70,33 @@ ipcRenderer (processo de renderização)
                     preload.js
                         ↓
  Fluxo: ipcRenderer -> hello() -> main.js
+
+_____________________________________________
+
+Aula 02
+
+Uso de frameworks (front-end) no electron:
+- bootstrap
+    |_____ local (download)
+
+Passo 1: Fazer o download do css e do js compilado
+Passo 2: Descompactar e copiar o bootstrapmin.css e js_min para a pasta public
+Passo 3: Link com o documento html.
+
+Para usar o bootstrap, seguir a documentação...
+O bootstrap trabalha com conceito de classes
+Inicie criando um container (div.container)
+
+
+_____________________________________________
+
+Aula 03
+
+Relação entre Janela (parent-child) e modal
+- Foco do usuário no sistema 
+- segurança e desempenho
+
+
+Passo 01: Determinar a janela pai (geralmente a principal)
+Passo 02: Criar o relacionamento entre as janelas.
+
