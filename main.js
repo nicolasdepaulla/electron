@@ -144,6 +144,8 @@ console.log(`Electron: ${process.versions.node}`)
 // exemplo 2 : Recebimento de uma mensagem do renderer
 ipcMain.on('send-message', (event, Message) => {
     console.log(`processo principal recebeu uma mensagem: ${Message}`)
+    // enviar uma resposta ao renderizador
+    event.reply('receive-message', "olá renderizador!")
 })
 
 // exemplo 3: recebimento do renderer de uma ação a ser executada
